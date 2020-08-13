@@ -36,7 +36,7 @@
 	<title>Sapper project template</title>
 </svelte:head>
 
-<h1>Great success!</h1>
+<h1>{title}</h1>
 
 <figure>
 	<img alt='Success Kid' src='successkid.jpg'>
@@ -44,3 +44,7 @@
 </figure>
 
 <p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+
+<script lang="ts">
+export let title: string = "Hello TypeScript";
+</script>
