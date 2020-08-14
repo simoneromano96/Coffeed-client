@@ -1,0 +1,73 @@
+schema {
+  query: QueryRoot
+  mutation: MutationRoot
+  subscription: SubscriptionRoot
+}
+
+# Directs the executor to query only when the field exists.
+directive @ifdef on FIELD
+type Coffee {
+  id: String!
+  name: String!
+  price: Float!
+  imageUrl: String!
+  description: String!
+}
+
+type CoffeeChanged {
+  mutationType: MutationType!
+  id: ID!
+}
+
+input CreateCoffeeInput {
+  name: String!
+  price: Float!
+  imageUrl: Url!
+  description: String
+}
+
+type MutationRoot {
+  # Creates a new coffee
+  createCoffee(
+    # The parameters of the new coffee.
+    input: CreateCoffeeInput!
+  ): Coffee!
+  # Updates a coffee
+  updateCoffee(
+    # The parameters of the updated coffee, must have ID.
+    input: UpdateCoffeeInput!
+  ): Coffee!
+  # Deletes a coffeee
+  deleteCoffee(id: String!): Coffee!
+}
+
+enum MutationType {
+  CREATED
+  UPDATED
+  DELETED
+}
+
+type QueryRoot {
+  # Returns an array with all the coffees or an empty array
+  coffees: [Coffee!]!
+  # Returns a coffee by its ID, will return error if none is present with the given ID
+  coffee(
+    # ID of the coffee.
+    id: String!
+  ): Coffee!
+}
+
+type SubscriptionRoot {
+  coffees(mutationType: MutationType): CoffeeChanged!
+}
+
+input UpdateCoffeeInput {
+  id: String!
+  name: String
+  price: Float
+  imageUrl: Url
+  description: String
+}
+
+scalar Url
+

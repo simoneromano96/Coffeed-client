@@ -4,6 +4,7 @@ import Homepage from "./pages/Homepage/Homepage.vue"
 import About from "./pages/About/About.vue"
 import Shop from "./pages/Shop/Shop.vue"
 import Login from "./pages/Login/Login.vue"
+import NewCoffee from "./pages/Admin/NewCoffee/NewCoffee.vue"
 
 Vue.use(Router)
 
@@ -30,6 +31,11 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login,
+    },
+    {
+      path: "/admin/new-coffee",
+      name: "admin-new-coffee",
+      component: NewCoffee,
     },
   ],
 })

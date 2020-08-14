@@ -1,14 +1,15 @@
 import { client } from "./graphClient"
 
+/** Class representing a coffee */
 export class Coffee {
   public description?: string
 
   /**
    * A representation of a Coffee
-   * @param id The coffee's UUID
-   * @param name The coffee name
-   * @param price The coffee's price
-   * @param imageUrl Where to retrieve the coffee image
+   * @param {string} id The coffee's ID
+   * @param {string} name The coffee name
+   * @param {number} price The coffee's price
+   * @param {string} imageUrl Where to retrieve the coffee image
    */
   constructor(public id: string, public name: string, public price: number, public imageUrl: string) {
     this.description = ""
@@ -18,13 +19,13 @@ export class Coffee {
     // Ask for description only once
     if (!this.description) {
       try {
-        const query = `{
-          coffee(id: "${this.id}") {
-            description
-          }
-        }`
+        // const query = `{
+        //   coffee(id: "${this.id}") {
+        //     description
+        //   }
+        // }`
 
-        const res: { coffee: { description: string } } = await client.request(query)
+        const res = await client.query({ coffee: [{ id: this.id }, { description: true }] })
         const description = res.coffee.description
         this.description = description && description.length > 0 ? description : "No description available 😥"
       } catch (error) {

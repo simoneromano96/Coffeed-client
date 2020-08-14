@@ -1,15 +1,21 @@
-import { GraphQLClient } from "graphql-request"
+// import { GraphQLClient } from "graphql-request"
 import { GRAPHQL_ENDPOINT } from "./configuration"
+import { Chain } from "../graphql/graphql-zeus"
 
-class GraphClient {
-  private client: GraphQLClient
+// class GraphClient {
+//   private client: GraphQLClient
+//
+//   constructor() {
+//     this.client = new GraphQLClient(GRAPHQL_ENDPOINT, { headers: {} })
+//   }
+//
+//   // Getters
+//   getClient = (): GraphQLClient => this.client
+// }
+//
+// export const client = new GraphClient().getClient()
 
-  constructor() {
-    this.client = new GraphQLClient(GRAPHQL_ENDPOINT, { headers: {} })
-  }
+const client = Chain(GRAPHQL_ENDPOINT)
 
-  // Getters
-  getClient = (): GraphQLClient => this.client
-}
-
-export const client = new GraphClient().getClient()
+export { client }
+export default client

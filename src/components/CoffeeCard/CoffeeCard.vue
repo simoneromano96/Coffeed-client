@@ -1,23 +1,19 @@
 <template>
   <div class="card">
-    <span class="name">{{coffee.name}}</span>
+    <span class="name">{{ coffee.name }}</span>
     <div class="image-wrap" @click="fetchDescription()">
       <img :src="coffee.imageUrl" alt="Coffee image" class="image" />
       <div class="details">
-        <div
-          class="opaque"
-          :class="coffee.description === '' ? 'show' : 'hide'"
-        >Click to get my details!</div>
+        <div class="opaque" :class="coffee.description === '' ? 'show' : 'hide'">Click to get my details!</div>
         <div class="loading" :class="loadingPercentage < 100 ? 'show' : 'hide'">
           <coffee-loader :id="coffee.id" :loading-percentage="loadingPercentage" :clicked="clicked"></coffee-loader>
         </div>
-        <div
-          class="animate"
-          :class="coffee.description === '' || loadingPercentage < 100 ? 'hide' : 'show'"
-        >{{coffee.description}}</div>
+        <div class="animate" :class="coffee.description === '' || loadingPercentage < 100 ? 'hide' : 'show'">
+          {{ coffee.description }}
+        </div>
       </div>
     </div>
-    <span class="price">{{coffee.price}} €</span>
+    <span class="price">{{ coffee.price }} €</span>
   </div>
 </template>
 
@@ -141,9 +137,9 @@ export default class CoffeeCard extends Vue {
     this.clicked = true
     setInterval(() => {
       if (this.loadingPercentage <= 100) {
-        this.loadingPercentage += 5
+        this.loadingPercentage += 1
       }
-    }, 200)
+    }, 25)
     await this.coffee.fetchDescription()
   }
 }
