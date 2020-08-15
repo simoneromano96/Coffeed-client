@@ -1,80 +1,28 @@
 <template>
-  <div class="container">
-    <h1>tus-js-client demo - File Upload</h1>
+  <div class="page">
+    <h1>Create a new coffee</h1>
 
-    <p>
-      This demo shows the basic functionality of the tus protocol. You can select a file using the controls below and
-      start/pause the upload as you wish.
-    </p>
-
-    <p>
-      For a prettier demo please go to the
-      <a href="http://tus.io/demo.html">tus.io</a> website. This demo is just here to aid developers.
-    </p>
-
-    <br />
-
-    <table>
-      <tr>
-        <td>
-          <label for="endpoint">
-            Upload endpoint:
-          </label>
-        </td>
-        <td>
-          <input type="text" id="endpoint" name="endpoint" value="https://master.tus.io/files/" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="chunksize">
-            Chunk size (bytes):
-          </label>
-        </td>
-        <td>
-          <input type="number" id="chunksize" name="chunksize" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="paralleluploads">
-            Parallel upload requests:
-          </label>
-        </td>
-        <td>
-          <input type="number" id="paralleluploads" name="paralleluploads" value="1" />
-        </td>
-      </tr>
-    </table>
-
-    <br />
-
-    <input type="file" @change="onFileChange" />
-
-    <br />
-    <br />
-
-    <div class="row">
-      <div class="span8">
-        <div class="progress progress-striped progress-success">
-          <div class="bar" style="width: 0%;"></div>
-        </div>
-      </div>
-      <div class="span4">
-        <button class="btn stop" id="toggle-btn" @click="onUpload">{{ toggleText }}</button>
-      </div>
-    </div>
+    <form>
+      <label for="coffee_name"> Coffee Name </label> <br />
+      <input type="text" name="coffee_name" v-model="$v.name.$model" /> <br />
+      <label for="coffee_price"> Coffee Price </label> <br />
+      <input type="number" name="coffee_price" v-model="$v.price.$model" /> <br />
+      <label for="coffee_description"> Coffee Description (Optional) </label> <br />
+      <input type="text" name="coffee_description" /> <br />
+      <label for="coffee_image"> Coffee Image (Upload this first) </label> <br />
+      <input type="file" name="coffee_image" @change="onFileChange" /> <br />
+    </form>
 
     <hr />
-    <h3>Uploads</h3>
-    <p id="upload-list">
-      Succesful uploads will be listed here. Try one!
-    </p>
+
+    <button class="btn stop" id="toggle-btn" @click="onUpload">{{ toggleText }}</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from "vue-property-decorator"
+import { validationMixin } from "vuelidate"
+import { required, decimal, minValue, minLength, between } from "vuelidate/lib/validators"
 import { Upload, UploadOptions } from "tus-js-client"
 import * as tus from "tus-js-client"
 
@@ -88,7 +36,30 @@ import * as tus from "tus-js-client"
 // var parallelInput = document.querySelector("#paralleluploads")
 // var endpointInput = document.querySelector("#endpoint")
 
-@Component
+const decimalPlaces = (decimalDigits = 2) => (value?: string) => {
+  if (value) {
+    const [int, dec] = value.split(".")
+    return !dec || dec.length <= 2
+  } else {
+    return false
+  }
+}
+
+@Component({
+  mixins: [validationMixin],
+  validations: {
+    name: {
+      required,
+      minLength: minLength(4),
+    },
+    price: {
+      required,
+      decimal,
+      minValue: minValue(0),
+      decimalPlaces: decimalPlaces(2),
+    },
+  },
+})
 export default class NewCoffee extends Vue {
   private upload?: Upload
   private uploading = false
@@ -173,7 +144,17 @@ export default class NewCoffee extends Vue {
     this.upload = upload
     this.uploading = true
   }
+
+  reset() {
+    this.upload = undefined
+    this.uploading = false
+    this.files = []
+    this.toggleText = "Start upload"
+  }
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.page {
+}
+</style>

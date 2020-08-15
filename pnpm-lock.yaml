@@ -10,10 +10,12 @@ dependencies:
   vue-class-component: 7.2.5_vue@2.6.11
   vue-property-decorator: 9.0.0_ca358c81848ed432ed1021d8d24ee103
   vue-router: 3.4.3
+  vuelidate: 0.7.5
   vuex: 3.5.1_vue@2.6.11
 devDependencies:
   '@types/jest': 26.0.9
   '@types/node': 14.0.27
+  '@types/vuelidate': 0.7.13
   '@typescript-eslint/eslint-plugin': 3.9.0_d6577319693733c9ab4cf1a59ecb806a
   '@typescript-eslint/parser': 3.9.0_eslint@7.6.0+typescript@3.9.7
   '@vue/cli-plugin-babel': 4.5.3_8839465a8340cbdc269eb1e3853da33d
@@ -1549,6 +1551,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-KswB5C7Kwduwjj04Ykz+AjvPcfgv/37Za24O2EDzYNbwyzOo8+ydtvzUfZ5UMguiVu29Gx44l1A6VsPPcmYu9w==
+  /@types/vuelidate/0.7.13:
+    dependencies:
+      vue: 2.6.11
+    dev: true
+    resolution:
+      integrity: sha512-CFyaS5yov3HjwoZrQyehiE1cNkyuN0/EDQfpeneWQFC9onJ0ieQL6dgFxN6zzPMHDZ87If3UH9WcgkPB4vbcoQ==
   /@types/webpack-dev-server/3.11.0:
     dependencies:
       '@types/connect-history-api-fallback': 1.3.3
@@ -12411,9 +12419,15 @@ packages:
     resolution:
       integrity: sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
   /vue/2.6.11:
-    dev: false
     resolution:
       integrity: sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==
+  /vuelidate/0.7.5:
+    dev: false
+    engines:
+      node: '>= 4.0.0'
+      npm: '>= 3.0.0'
+    resolution:
+      integrity: sha512-GAAG8QAFVp7BFeQlNaThpTbimq3+HypBPNwdkCkHZZeVaD5zmXXfhp357dcUJXHXTZjSln0PvP6wiwLZXkFTwg==
   /vuex/3.5.1_vue@2.6.11:
     dependencies:
       vue: 2.6.11
@@ -13026,6 +13040,7 @@ specifiers:
   '@types/animejs': ^3.1.1
   '@types/jest': ^26.0.9
   '@types/node': ^14.0.27
+  '@types/vuelidate': ^0.7.13
   '@typescript-eslint/eslint-plugin': ^3.9.0
   '@typescript-eslint/parser': ^3.9.0
   '@vue/cli-plugin-babel': ^4.5.3
@@ -13060,4 +13075,5 @@ specifiers:
   vue-property-decorator: ^9.0.0
   vue-router: ^3.4.3
   vue-template-compiler: ^2.6.11
+  vuelidate: ^0.7.5
   vuex: ^3.5.1
